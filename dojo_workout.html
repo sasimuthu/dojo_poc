@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+	<link rel="stylesheet" href="../dijit/themes/claro/claro.css">
+	
+<script>dojoConfig = {async: true, parseOnLoad: false}</script><script src="../dojo/dojo.js"></script>
+<script>
+require(["dojo/dom", "dojo/on", "dojo/_base/fx", "dojo/dom-style", "dojo/domReady!"],
+function(dom, on, baseFx, domStyle){
+  var node = dom.byId("findMe");
+  on(dom.byId("buttonOne"), "click", function(){
+    baseFx.fadeOut({ node: node, duration: 300 }).play();
+  });
+  on(dom.byId("buttonTwo"), "click", function(){
+    baseFx.fadeIn({ node: node, duration: 300 }).play();
+  })
+  on(dom.byId("btn3"), "click", function(){
+    dom.byId("changecontent").innerHTML = "My content has changed";
+  })
+  on(dom.byId("btn4"), "click", function(){
+     var node = dom.byId("changecontent");
+     var computedStyle = domStyle.getComputedStyle(node);
+     var output = "computedStyle.width: " + computedStyle.width + "<br/>";
+     output += "computedStyle.height: " + computedStyle.height + "<br/>";
+     output += "computedStyle.backgroundColor: " + computedStyle.backgroundColor + "<br/>";
+     dom.byId("displaystyle").innerHTML = output;
+  })
+});
+
+require(["dojo/ready", "dijit/form/Select", "dojo/_base/window", "dojo/dom"], function(ready, Select, win, dom){
+    ready(function(){
+       obj = new Select({
+            name: "select2",
+            options: [
+                { label: "TN", value: "Tennessee" },
+                { label: "VA", value: "Virginia", selected: true },
+                { label: "WA", value: "Washington" },
+                { label: "FL", value: "Florida" },
+                { label: "CA", value: "California" }
+            ]
+        });
+       dom.byId("target").innerHTML = obj;
+    });
+});
+
+</script>
+</head>
+<body class="claro">
+   <h2>Example for button onclick</h2>
+  <button id="buttonOne">Hide Me!</button> <button id="buttonTwo">Show Me!</button>
+  <div id="findMe">Hiya!</div>
+   <h2>dom-attr</h2>
+   <button id="btn3">click me to change the content</button>
+   <div id="changecontent" style="margin: 1em;text-align: center;padding: 1em;border: 2px solid black;color: white;background-color: blue;">I'm going to change</div>
+   <button id="btn4">get the style</button>
+   <div id="displaystyle">Style will go here</div>
+   <div id="target"></div>
+</body>
+</html>
